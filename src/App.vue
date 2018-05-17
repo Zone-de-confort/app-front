@@ -41,13 +41,19 @@ export default {
       this.takePhoto();
       console.log('photo envoyée');
       const data = new FormData();
-      console.log(this.img);
-      data.append('file', this.img);
+      //console.log(this.img);
+      
+      var base64 = this.img;
+      base64 = base64.substring(23);
+      console.log(typeof(base64))
+      console.log(base64);
+      data.append('file', base64);
       axios.post(this.api_url + 'fichier/video', data, {
           headers: {
-            'Content-Type': "multipart/form-data"
+            'Content-Type': "application/x-www-form-urlencoded"
           },
           params: {
+
             idPc: 420
           }
         })
