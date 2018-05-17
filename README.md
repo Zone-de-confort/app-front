@@ -1,8 +1,15 @@
-# front
+# app-front
 
 > Front Vue.js pour l'application de demo Pole Emploi.
 
-## Build Setup
+## Utilisateur
+
+Le front seul ne nécessite pas de serveur, mais l'exécution parallèle de [app-back](https://github.com/Zone-de-confort/app-back) est nécessaire pour profiter de toutes les foncitonnalités.  
+Télécharger l'archive et exécuter index.html dans le navigateur : https://github.com/Zone-de-confort/app-front/releases/tag/1.0
+
+## Développeur
+
+### Build Setup
 
 ``` bash
 # install dependencies
@@ -17,5 +24,3 @@ npm run build
 # build for production and view the bundle analyzer report
 npm run build --report
 ```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
