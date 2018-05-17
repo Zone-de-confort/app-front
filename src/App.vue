@@ -1,9 +1,10 @@
 <template>
   <div id="app" class="component">
-    <b-container fluid class="header status">{{ idleMessage }}</b-container>
-    <b-container>
+    <b-container fluid class="header status fixed-top">{{ idleMessage }}</b-container>
+    <b-container class="main">
       <router-view/>
     </b-container>
+    <record></record>
     <webcam style="visibility:hidden" ref="webcam"></webcam>
     <img :src="this.img"/>
   </div>
@@ -14,7 +15,7 @@ import Vue from 'vue'
 import IdleVue from 'idle-vue'
 import Webcam from 'vue-web-cam/src/webcam'
 import axios from 'axios'
-import recorder from './recorder/main.js';
+import Record from '@/components/Record'
 
 const eventsHub = new Vue();
 const idleOptions = {
@@ -26,10 +27,9 @@ Vue.use(IdleVue, idleOptions);
 
 export default {
   name: 'App',
-  components: { Webcam },
+  components: { Webcam, Record },
   data: function () {
     return {
-      idleMessage: 'Message par défaut.',
       img: null
     }
   },
@@ -39,43 +39,36 @@ export default {
     },
     sendPhoto () {
       this.takePhoto();
-      console.log('photo envoyée');
+
       const data = new FormData();
-      //console.log(this.img);
-      
+
       var base64 = this.img;
-      base64 = base64.substring(23);
-      console.log(typeof(base64))
+      console.log(base64);
+      base64 = base64.substring(base64.indexOf(',') + 1);
       console.log(base64);
       data.append('file', base64);
+      var that = this;
       axios.post(this.api_url + 'fichier/video', data, {
           headers: {
             'Content-Type': "application/x-www-form-urlencoded"
           },
           params: {
-
             idPc: 420
           }
         })
         .then(response => {
           console.log(response);
+          that.idleMessage = ' Photo envoyée.';
         })
         .catch(e => {
           console.log(e)
         })
+      console.log('photo envoyée');
       setTimeout(this.sendPhoto, process.env.PHOTO_TIME);
-    },
-    recordAudio () {
-      setTimeout(function(){
-        recorder.toggleRecording
-      }, 2000);
-
-      // console.log(recorder);
     }
   },
-  mounted: function () {
-    this.sendPhoto();
-    this.recordAudio();
+  mounted () {
+    //TODO uncomment this.sendPhoto();
   },
   // Idle hooks
   onIdle () {
@@ -98,7 +91,7 @@ export default {
   },
   onActive () {
     console.log('active');
-    this.idleMessage = 'Utilisateur de nouveau actif';
+    this.idleMessage = 'Utilisateur actif.';
   }
 }
 </script>

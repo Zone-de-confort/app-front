@@ -19,6 +19,7 @@ Vue.mixin({
   data: function () {
     return {
       api_url: process.env.BACKEND_API_URL,
+      idleMessage: 'Bienvenue.',
       click: 0
     }
   },
