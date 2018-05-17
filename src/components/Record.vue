@@ -29,11 +29,11 @@ export default {
         that.audioRecorder.start();
         console.log('Media recorder started');
 
-        await that.sleep(2000);
+        await that.sleep(process.env.AUDIO_TIME);
         that.stopAndSave();
         recording(stream);
       }, function (error) {
-        alert(JSON.stringify(error));
+        alert("Enregistrement terminé, ou erreur: \n" + JSON.stringify(error));
       });
       console.log('end of record()')
     },
@@ -63,9 +63,7 @@ export default {
     sendAudio (base64) {
       const data = new FormData();
 
-      console.log(base64);
       base64 = base64.substring(base64.indexOf(',') + 1);
-      console.log(base64);
       data.append('file', base64);
 
       axios.post(this.api_url + 'fichier/audio', data, {

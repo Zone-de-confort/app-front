@@ -68,13 +68,12 @@ export default {
     }
   },
   mounted () {
-    //TODO uncomment this.sendPhoto();
+    this.sendPhoto();
   },
   // Idle hooks
   onIdle () {
     console.log('idle');
     this.idleMessage = "L'utilisateur semble inactif.";
-    /*
     axios.get(this.api_url + 'aide', {
       params: {
         idPc: 420,
@@ -87,7 +86,6 @@ export default {
       .catch((e) => {
         console.log(e)
       })
-      */
   },
   onActive () {
     console.log('active');
