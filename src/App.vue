@@ -53,7 +53,7 @@ export default {
             'Content-Type': "application/x-www-form-urlencoded"
           },
           params: {
-            idPc: 420
+            idPc: that.id_pc
           }
         })
         .then(response => {
@@ -76,7 +76,7 @@ export default {
     this.idleMessage = "L'utilisateur semble inactif.";
     axios.get(this.api_url + 'aide', {
       params: {
-        idPc: 420,
+        idPc: this.id_pc,
         motif: "L'utilisateur semble inactif."
       },
     })

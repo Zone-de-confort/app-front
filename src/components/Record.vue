@@ -71,7 +71,7 @@ export default {
           'Content-Type': "application/x-www-form-urlencoded"
         },
         params: {
-          idPc: 420
+          idPc: this.id_pc
         }
       })
         .then(response => {
@@ -84,19 +84,10 @@ export default {
     },
     sleep (ms) {
       return new Promise(resolve => setTimeout(resolve, ms));
-    },
-    async test () {
-      console.log('debut');
-      this.record();
-      console.log('debut');
-      await this.sleep(3000);
-      this.stopAndSave();
-      console.log('fin');
     }
   },
   mounted () {
     this.record();
-    //this.test();
   }
 };
 </script>

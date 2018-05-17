@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import axios from 'axios'
 import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
@@ -13,30 +14,31 @@ Vue.use(BootstrapVue);
 Vue.config.productionTip = false;
 
 Vue.mixin({
-  created: function () {
-    this.hello()
-  },
   data: function () {
     return {
       api_url: process.env.BACKEND_API_URL,
+      id_pc: process.env.ID_PC,
       idleMessage: 'Bienvenue.',
       click: 0
     }
   },
   methods: {
-    hello () {
-      console.log('hello from mixin!')
-      /*
-      this.$http.get('https://www.google.fr/').then(response => {
-        console.log(response);
-      }, response => {
-        console.log(response);
-      });
-      */
-    },
     countClick () {
       this.click++;
-      console.log(this.click)
+      if (this.click > 40) {
+        axios.get(this.api_url + 'aide', {
+          params: {
+            idPc: this.id_pc,
+            motif: "L'utilisateur semble être en difficulté devant le formulaire."
+          },
+        })
+          .then((response) => {
+            return;
+          })
+          .catch((e) => {
+            console.log(e)
+          })
+      }
     }
   }
 });
