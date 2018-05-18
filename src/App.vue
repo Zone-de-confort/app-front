@@ -5,8 +5,11 @@
       <router-view/>
     </b-container>
     <record></record>
+    <b-col>
+      <p>Dernier snapshot envoyé : </p>
+      <img style="border: 1px solid black;" :src="this.img"/>
+    </b-col>
     <webcam style="visibility:hidden" ref="webcam"></webcam>
-    <img :src="this.img"/>
   </div>
 </template>
 
